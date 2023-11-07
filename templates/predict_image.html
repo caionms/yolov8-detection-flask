@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Escolha o Processamento</title>
+        <title>Detecção em imagens</title>
     </head>
     <body>
         <div id="particles-js"></div>
@@ -11,24 +11,25 @@
             <div class="topnav">
                 <div class="space"></div>
                 <a id="pgimg" href="/predict_image/">Imagens</a>
-                <a id="pgvid" href="/predict_video/">Videos</a>
                 <div class="space"></div>
             </div>
 
             <div id="html" class="content">
                 <h1>Processamento de Imagem</h1>
-                <form method="post">
+                
+                <form method="post" class="button-form">
                     <label for="image_url">URL da Imagem:</label>
-                    <input type="text" name="image_url" id="image_url" required>
+                    <input type="text" name="image_url" id="image_url" class="wide-input" required>
                     <br>
                     <input type="submit" value="Processar">
                 </form>
-                <form method="post" action="/clear">
+                <form method="post" action="/clear" class="button-form">
                     <input type="submit" value="Limpar">
                 </form>
+
                 {% if result %}
-                <h2>Imagem Resultante:</h2>
-                <img src="data:image/jpeg;base64,{{ result }}" alt="Resultado">
+                <h2>Resultado:</h2>
+                <img src="data:image/jpeg;base64,{{ result }}" alt="Resultado" class="center-image">
                 {% endif %}
                 
 
