@@ -1,23 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Processamento de Imagem</title>
-</head>
-<body>
-    <h1>Processamento de Imagem</h1>
-    <form method="post">
-        <label for="image_url">URL da Imagem:</label>
-        <input type="text" name="image_url" id="image_url" required>
-        <br>
-        <input type="submit" value="Processar">
-    </form>
-    {% if result %}
-    <h2>Imagem Resultante:</h2>
-    <img src="data:image/jpeg;base64,{{ result }}" alt="Resultado">
-    {% endif %}
-    
-    <form method="post" action="/clear">
-        <input type="submit" value="Limpar">
-    </form>
-</body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Escolha o Processamento</title>
+    </head>
+    <body>
+        <div id="particles-js"></div>
+        <div id="pagebox">
+            <div class="topnav">
+                <div class="space"></div>
+                <a id="pgimg" href="/predict_image/">Imagens</a>
+                <a id="pgvid" href="/predict_video/">Videos</a>
+                <div class="space"></div>
+            </div>
+
+            <div id="html" class="content">
+                <h1>Processamento de Imagem</h1>
+                <form method="post">
+                    <label for="image_url">URL da Imagem:</label>
+                    <input type="text" name="image_url" id="image_url" required>
+                    <br>
+                    <input type="submit" value="Processar">
+                </form>
+                <form method="post" action="/clear">
+                    <input type="submit" value="Limpar">
+                </form>
+                {% if result %}
+                <h2>Imagem Resultante:</h2>
+                <img src="data:image/jpeg;base64,{{ result }}" alt="Resultado">
+                {% endif %}
+                
+
+            <a id="top">
+                <svg width="20px" height="20px" viewBox="0 0 444.819 444.819">
+                    <path d="M433.968,278.657L248.387,92.79c-7.419-7.044-16.08-10.566-25.977-10.566c-10.088,0-18.652,3.521-25.697,10.566
+		                     L10.848,278.657C3.615,285.887,0,294.549,0,304.637c0,10.28,3.619,18.843,10.848,25.693l21.411,21.413
+		                     c6.854,7.23,15.42,10.852,25.697,10.852c10.278,0,18.842-3.621,25.697-10.852L222.41,213.271L361.168,351.74
+		                     c6.848,7.228,15.413,10.852,25.7,10.852c10.082,0,18.747-3.624,25.975-10.852l21.409-21.412
+		                     c7.043-7.043,10.567-15.608,10.567-25.693C444.819,294.545,441.205,285.884,433.968,278.657z" fill="#FFFFFF"/>
+                </svg>
+            </a>
+            <div class="space"></div>
+            <footer>
+                <p>Feito por:</p>
+                <p>Caio Nery.</br></br>Dúvidas? Mande um email para <a style="color:cornflowerblue" href="mailto:caionms@ufba.br">caionms@ufba.br</a></p>                <div class="space"></div>
+                <div class="space"></div>
+                <p><a href="https://github.com/caionms/yolov8-detection-flask">
+                    <svg width="40px" height="38px" role="img" viewBox="0 0 24 24">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#FFFFFF"/>
+                    </svg>
+                </a></p>
+            </footer>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        var homeBtn = document.getElementById("pgimg")
+
+        //Load first page
+        var content = document.getElementById("html")
+        // fetch("content-home.html").then(response => response.text()).then(text => content.innerHTML = text)
+        homeBtn.classList.add("active")
+
+        //Home Button
+        homeBtn.addEventListener("click", function(){
+            fetch("content-home.html").then(response => response.text()).then(text => content.innerHTML = text)
+            homeBtn.classList.add("active")
+        })
+               
+        var topBtn = document.getElementById("top")
+        
+        document.body.onscroll = function() {
+            if (document.body.scrollTop > 150) topBtn.classList.add("active");
+            else topBtn.classList.remove("active");
+        };
+
+        topBtn.addEventListener("click", function() {
+            document.body.scrollTop = 0;
+        })
+
+        particlesJS.load('particles-js', "{{ url_for('static', filename='particles.json') }}")
+    </script>
 </html>
