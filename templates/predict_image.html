@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processamento de Imagem</title>
+</head>
+<body>
+    <h1>Processamento de Imagem</h1>
+    <form method="post">
+        <label for="image_url">URL da Imagem:</label>
+        <input type="text" name="image_url" id="image_url" required>
+        <br>
+        <input type="submit" value="Processar">
+    </form>
+    {% if result %}
+    <h2>Imagem Resultante:</h2>
+    <img src="data:image/jpeg;base64,{{ result }}" alt="Resultado">
+    {% endif %}
+    
+    <form method="post" action="/clear">
+        <input type="submit" value="Limpar">
+    </form>
+</body>
+</html>

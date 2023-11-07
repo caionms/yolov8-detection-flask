@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processamento de Vídeo</title>
+</head>
+<body>
+    <h1>Processamento de Vídeo</h1>
+    <form method="post">
+        <label for="video_url">URL do Vídeo:</label>
+        <input type="text" name="video_url" id="video_url" required>
+        <br>
+        <input type="submit" value="Processar">
+    </form>
+    {% if result_video %}
+    <h2>Vídeo Resultante:</h2>
+    <video width="320" height="240" controls>
+        <source src="{{ result_video }}" type="video/mp4">
+        Seu navegador não suporta a exibição de vídeos.
+    </video>
+    {% endif %}
+    
+    <form method="post" action="/clear">
+        <input type="submit" value="Limpar">
+    </form>
+</body>
+</html>
